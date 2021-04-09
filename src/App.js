@@ -1,24 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
+import Header from './component/Header/Header';
+import About from './Pages/About/About';
+import ChonXe from './Pages/ChonXe/ChonXe';
+import Home from './Pages/Home/Home';
+import UseEffectDemo from './Pages/Hook/UseEffectDemo/UseEffectDemo';
+import UseStateDemo from './Pages/Hook/UseStateDemo/UseStateDemo';
+import Login from './Pages/Login/Login';
+import Register from './Pages/Register/Register';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      {/* Dùng path exact Hoặc bao thêm thẻ Swtich bên ngoài hoặc dùng cả 2 để phòng ngừa hậu quả*/}
+      <Switch>
+        <div className="App">
+          <Header></Header>
+          <Route path='/home' exact component={Home}></Route>
+          <Route path='/login' exact render={(propsRoute) => {
+            return (
+              <div>
+                <h1>Login</h1>
+                <Login {...propsRoute}></Login>
+              </div>
+            );
+          }}></Route>
+          <Route path='/register' exact render={(propsRoute) => {
+            return (
+              <Register></Register>
+            );
+          }}></Route>
+          <Route path='/about' exact render={(propsRoute) => {
+            return (
+              <About></About>
+            );
+          }}></Route>
+          <Route path='/demousestate' exact component={UseStateDemo}></Route>
+          <Route path='/demouseeffect' exact component={UseEffectDemo}></Route>
+          <Route path='/chonxe' exact component={ChonXe}></Route>
+
+          <Route path='/' exact component={Home}></Route>
+        </div>
+      </Switch>
+    </BrowserRouter>
   );
 }
 
